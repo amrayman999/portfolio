@@ -5,6 +5,11 @@ dotenv.config();
 
 const DB_NAME = process.env.DB_NAME || 'portfolio_db';
 
+const sslOption =
+  process.env.DB_SSL === 'true' || process.env.DB_SSL === '1'
+    ? { ssl: { rejectUnauthorized: false } }
+    : {};
+
 const baseConfig = {
   host: process.env.DB_HOST || 'localhost',
   port: Number(process.env.DB_PORT || 3306),
@@ -15,6 +20,7 @@ const baseConfig = {
   queueLimit: 0,
   charset: 'utf8mb4',
   dateStrings: true,
+  ...sslOption,
 };
 
 /**

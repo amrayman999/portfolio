@@ -4,6 +4,8 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "sync:shared": "node ../scripts/sync-shared.mjs",
+    "predev": "node ../scripts/sync-shared.mjs",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"

@@ -27,6 +27,18 @@ async function initDatabase() {
   console.log('Database tables ready.');
 }
 
+/**
+ * Generate the sample SVGs the seeded content points at. Render/cloud deploys
+ * don't ship backend/uploads (gitignored), so create them at startup.
+ */
+function ensureSeedImages() {
+  try {
+    require('../scripts/generate-seed-images');
+  } catch (err) {
+    console.error('Could not generate seed images:', err.message);
+  }
+}
+
 const app = express();
 
 app.use(cors({ origin: process.env.FRONTEND_ORIGIN?.split(',') || true, credentials: true }));
@@ -49,6 +61,7 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 5000;
 
 async function start() {
+  ensureSeedImages();
   try {
     await initDatabase();
   } catch (err) {
