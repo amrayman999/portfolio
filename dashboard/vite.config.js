@@ -6,6 +6,7 @@ const root = fileURLToPath(new URL('.', import.meta.url));
 
 export default defineConfig({
   plugins: [react()],
+  base: process.env.NODE_ENV === 'production' ? '/dashboard/' : '/',
   resolve: {
     alias: {
       i18next: `${root}node_modules/i18next`,
