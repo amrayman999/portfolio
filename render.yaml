@@ -1,20 +1,22 @@
 # Render blueprint — https://render.com/docs/blueprint-spec
-# Creates the free Node.js backend service. Fill in the DB_* env vars
-# (from your TiDB Cloud Serverless cluster) and FRONTEND_ORIGIN before first deploy,
-# or set them in the Render dashboard after creation.
+# Single free service that serves the backend API, the public site, and the
+# admin dashboard from ONE URL. Fill in the DB_* env vars (from your TiDB Cloud
+# Serverless cluster) before first deploy, or set them in the Render dashboard.
 services:
   - type: web
-    name: portfolio-backend
+    name: portfolio
     runtime: node
     plan: free
-    rootDir: backend
-    buildCommand: npm install
+    rootDir: .
+    buildCommand: npm run build
     startCommand: npm start
     healthCheckPath: /api/health
     autoDeploy: true
     envVars:
       - key: NODE_ENV
         value: production
+      - key: NODE_VERSION
+        value: "20"
       - key: PORT
         value: 10000
       - key: DB_HOST

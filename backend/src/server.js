@@ -53,6 +53,21 @@ app.use('/api/auth', authRoutes);
 app.use('/api/public', publicRoutes);
 app.use('/api/admin', adminRoutes);
 
+// Serve the built frontend + dashboard from the same origin (single-service deploy).
+// The dashboard SPA lives under /dashboard, the public SPA at the root.
+const FRONTEND_DIST = path.join(__dirname, '..', '..', 'frontend', 'dist');
+const DASHBOARD_DIST = path.join(__dirname, '..', '..', 'dashboard', 'dist');
+
+app.use('/dashboard', express.static(DASHBOARD_DIST));
+app.get('/dashboard/*', (req, res) => {
+  res.sendFile(path.join(DASHBOARD_DIST, 'index.html'));
+});
+
+app.use(express.static(FRONTEND_DIST));
+app.get('*', (req, res, next) => {
+  if (!req.path.startsWith('/api')) res.sendFile(path.join(FRONTEND_DIST, 'index.html'), () => next());
+});
+
 app.use((err, req, res, next) => {
   console.error(err);
   res.status(err.status || 500).json({ message: err.message || 'Server error' });
