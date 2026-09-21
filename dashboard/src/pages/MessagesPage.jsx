@@ -16,7 +16,7 @@ export default function MessagesPage() {
     setBusy(true);
     try {
       const res = await api.get('/admin/messages');
-      setRows(res.data.data || []);
+      setRows(res.data || []);
     } catch (e) {
       console.error(e);
     } finally {

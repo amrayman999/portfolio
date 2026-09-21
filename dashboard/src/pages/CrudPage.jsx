@@ -34,8 +34,9 @@ export default function CrudPage() {
     try {
       const params = { page, per, q: q || undefined };
       const res = await api.get(`/admin/${key}`, { params });
-      setRows(res.data.data || []);
-      setTotal(res.data.total || 0);
+      const list = res.data || [];
+      setRows(list);
+      setTotal(list.length);
     } catch (e) {
       console.error(e);
     } finally {
@@ -97,6 +98,7 @@ export default function CrudPage() {
 
   const cols = pickColumns(coll);
   const pages = Math.max(1, Math.ceil(total / per));
+  const paged = rows.slice((page - 1) * per, page * per);
 
   return (
     <div>
@@ -149,7 +151,7 @@ export default function CrudPage() {
                 </tr>
               </thead>
               <tbody>
-                {rows.map((row) => (
+                {paged.map((row) => (
                   <tr key={row.id} className="border-b border-soft last:border-0 hover:bg-soft/50">
                     {cols.map((c, i) => {
                       if (c.type === 'image') {
