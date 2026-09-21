@@ -6,17 +6,18 @@ import api from '../api/client';
 import { ImageUploader } from '../components/ImageUploader';
 
 const FIELDS = [
-  { name: 'name', type: 'string', locale: 'en', label: 'Name' },
-  { name: 'name', type: 'string', locale: 'ar', label: 'الاسم' },
+  { name: 'first_name', type: 'string', label: 'First Name' },
+  { name: 'last_name', type: 'string', label: 'Last Name' },
   { name: 'title', type: 'string', locale: 'en', label: 'Job Title' },
   { name: 'title', type: 'string', locale: 'ar', label: 'المسمى الوظيفي' },
-  { name: 'tagline', type: 'textarea', locale: 'en', label: 'Tagline' },
-  { name: 'tagline', type: 'textarea', locale: 'ar', label: 'النبذة' },
+  { name: 'headline', type: 'textarea', locale: 'en', label: 'Tagline' },
+  { name: 'headline', type: 'textarea', locale: 'ar', label: 'النبذة' },
   { name: 'bio', type: 'textarea', locale: 'en', label: 'Bio' },
   { name: 'bio', type: 'textarea', locale: 'ar', label: 'السيرة الذاتية' },
+  { name: 'location', type: 'string', locale: 'en', label: 'Location' },
+  { name: 'location', type: 'string', locale: 'ar', label: 'الموقع' },
   { name: 'email', type: 'email', label: 'Email' },
   { name: 'phone', type: 'string', label: 'Phone' },
-  { name: 'location', type: 'string', label: 'Location' },
   { name: 'avatar', type: 'image', label: 'Avatar' },
   { name: 'resume_url', type: 'url', label: 'Resume URL' },
 ];

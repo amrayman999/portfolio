@@ -36,6 +36,15 @@ router.get('/site', async (req, res) => {
   }
 });
 
+router.get('/about', async (req, res) => {
+  try {
+    const rows = await query('SELECT * FROM about WHERE id = 1');
+    res.json(serializeAbout(rows[0] || null));
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to load about' });
+  }
+});
+
 router.get('/:key', async (req, res) => {
   try {
     const key = req.params.key;
@@ -45,15 +54,6 @@ router.get('/:key', async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Failed to load data' });
-  }
-});
-
-router.get('/about', async (req, res) => {
-  try {
-    const rows = await query('SELECT * FROM about WHERE id = 1');
-    res.json(serializeAbout(rows[0] || null));
-  } catch (err) {
-    res.status(500).json({ message: 'Failed to load about' });
   }
 });
 
